@@ -1,0 +1,32 @@
+# Disk DescriptorFile
+version=1
+encoding="windows-1252"
+CID=a9776f62
+parentCID=ffffffff
+createType="twoGbMaxExtentSparse"
+
+# Extent description
+RW 8323072 SPARSE "CTF-FYP-s001.vmdk"
+RW 8323072 SPARSE "CTF-FYP-s002.vmdk"
+RW 8323072 SPARSE "CTF-FYP-s003.vmdk"
+RW 8323072 SPARSE "CTF-FYP-s004.vmdk"
+RW 8323072 SPARSE "CTF-FYP-s005.vmdk"
+RW 8323072 SPARSE "CTF-FYP-s006.vmdk"
+RW 8323072 SPARSE "CTF-FYP-s007.vmdk"
+RW 8323072 SPARSE "CTF-FYP-s008.vmdk"
+RW 8323072 SPARSE "CTF-FYP-s009.vmdk"
+RW 8323072 SPARSE "CTF-FYP-s010.vmdk"
+RW 8323072 SPARSE "CTF-FYP-s011.vmdk"
+RW 8323072 SPARSE "CTF-FYP-s012.vmdk"
+RW 4980736 SPARSE "CTF-FYP-s013.vmdk"
+
+# The Disk Data Base 
+#DDB
+
+ddb.adapterType = "lsilogic"
+ddb.geometry.cylinders = "6527"
+ddb.geometry.heads = "255"
+ddb.geometry.sectors = "63"
+ddb.longContentID = "47370d5f3a635b430d07c923a9776f62"
+ddb.uuid = "60 00 C2 96 2d 1d 94 73-b3 d9 ff ab b6 e5 dd 2e"
+ddb.virtualHWVersion = "21"
