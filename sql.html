@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        .error { color: red; }
+        .success { color: green; }
+        .hint { color: #666; font-style: italic; margin: 10px 0; }
+        input { margin: 5px 0; padding: 5px; }
+        pre { background: #f4f4f4; padding: 10px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Account Challenge</h1>
+        <p>Welcome! Your goal is to bypass the login.</p>
+
+        <form id="loginForm" action="#" method="POST">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+
+        <div id="query-preview"></div>
+        <div id="response" class="flag"></div>
+    </div>
+    <script>
+        // Obfuscated flag using multiple encoding layers and a cipher
+        const _0x5f2a = [
+            '0x1', '0x2', '0x3', '0x4',
+            String.fromCharCode(70,89,80,67,84,70,123,115,113,108,95,105,110,106,101,99,116,105,111,110,95,115,117,99,99,101,115,115,102,117,108,125)
+        ].map(x =>
+            typeof x === 'string' ?
+            x.split('').map(c =>
+                String.fromCharCode(c.charCodeAt(0) ^ 0x7)
+            ).join('') : x
+        );
+
+        function getFlag() {
+            return _0x5f2a[4].split('').map(c =>
+                String.fromCharCode(c.charCodeAt(0) ^ 0x7)
+            ).join('');
+        }
+
+        function previewQuery(username, password) {
+            return `SELECT * FROM users WHERE username = '${username}' AND password = '${password}';`;
+        }
+
+        // Obfuscated validation
+        const _0xf4e8 = {
+            _k3y: btoa('YWRtaW4='),
+            _v4l: String.fromCharCode(39,32,111,114,32,39,49,39,61,39,49),
+            _ch3ck: function(u, p) {
+                return (atob(atob(this._k3y)) === u.toLowerCase() &&
+                    p.toLowerCase().includes(this._v4l));
+            }
+        };
+
+        document.getElementById('loginForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+            const username = event.target.username.value;
+            const password = event.target.password.value;
+
+            const queryPreview = previewQuery(username, password);
+            document.getElementById('query-preview').innerHTML = `<div class="hint">Query to be executed:<br><pre>${queryPreview}</pre></div>`;
+
+            try {
+                const isValid = _0xf4e8._ch3ck(username, password);
+                if (isValid) {
+                    document.getElementById('response').innerHTML =
+                        `<div class="success">SQL Injection successful! Flag: ${getFlag()}</div>`;
+                } else {
+                    document.getElementById('response').innerHTML =
+                        '<div class="error">Login failed. Try a SQL injection!</div>';
+                }
+            } catch (error) {
+                document.getElementById('response').textContent = "An error occurred. Please try again.";
+            }
+        });
+    </script>
+</body>
+</html>
