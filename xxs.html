@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>XSS Learning Lab</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f8ff;
+        }
+        .challenge {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .output {
+            background: #f5f5f5;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .hint {
+            background: #e8f5e9;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border-left: 4px solid #4CAF50;
+        }
+        .success {
+            color: #4CAF50;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .hint-header {
+            font-weight: bold;
+            color: #2e7d32;
+            margin-bottom: 5px;
+        }
+        .clear-btn {
+            background-color: #f44336;
+        }
+        .clear-btn:hover {
+            background-color: #d32f2f;
+        }
+        .objective {
+            background: #fff3e0;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border-left: 4px solid #ff9800;
+        }
+        .objective ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .objective p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>XSS Learning Lab for Beginners</h1>
+
+    <div class="challenge">
+        <h2>Level 1: Basic Reflection</h2>
+        <p>Objective: Make the page display an alert box</p>
+        <input type="text" id="level1Input" placeholder="Enter your name">
+        <div>
+            <button onclick="level1()">Submit</button>
+            <button onclick="clearLevel(1)" class="clear-btn">Clear</button>
+        </div>
+        <div id="level1Output" class="output"></div>
+        <div class="hint">
+            <div class="hint-header">Helpful Tips:</div>
+            1. HTML has special tags that can run JavaScript<br>
+            2. The &lt;script&gt; tag is used to run JavaScript code<br>
+            3. alert() is a JavaScript function that shows a popup<br>
+            4. Try combining these concepts!
+        </div>
+    </div>
+
+    <div class="challenge">
+        <h2>Level 2: HTML Tag Injection</h2>
+        <p>Objective: Display an alert when an image fails to load</p>
+        <input type="text" id="level2Input" placeholder="Enter image URL">
+        <div>
+            <button onclick="level2()">Submit</button>
+            <button onclick="clearLevel(2)" class="clear-btn">Clear</button>
+        </div>
+        <div id="level2Output" class="output"></div>
+        <div class="hint">
+            <div class="hint-header">Helpful Tips:</div>
+            1. Images use the &lt;img&gt; tag with a src attribute<br>
+            2. When an image fails to load, it triggers an 'error' event<br>
+            3. The onerror attribute can run JavaScript when this happens<br>
+            4. Try making the image fail on purpose!
+        </div>
+    </div>
+
+    <div class="challenge">
+        <h2>Level 3: Comment Section</h2>
+        <p>Objective: Inject a clickable link that shows the domain name when clicked</p>
+        <input type="text" id="level3Input" placeholder="Enter your comment">
+        <div>
+            <button onclick="level3()">Submit</button>
+            <button onclick="clearLevel(3)" class="clear-btn">Clear</button>
+        </div>
+        <div id="level3Output" class="output"></div>
+        <div class="hint">
+            <div class="hint-header">Helpful Tips:</div>
+            1. Links use the &lt;a&gt; tag with an href attribute<br>
+            2. Instead of a URL, href can start with "javascript:"<br>
+            3. document.domain will show the current website address<br>
+            4. Combine these to make a special link!
+        </div>
+    </div>
+
+    <div class="challenge">
+        <h2>Level 4: Master Challenge</h2>
+        <div class="objective">
+            <p>Complete all stages in a single input:</p>
+            <ul>
+                <p>1. Show an alert with "Stage 1" when the page loads</p>
+                <p>2. Show "Stage 2" when an image fails to load</p>
+                <p>3. Show the domain name when clicking a link</p>
+                <p>4. Show the current URL when hovering over text</p>
+            </ul>
+        </div>
+        <input type="text" id="level4Input" placeholder="Show your XSS mastery!">
+        <div>
+            <button onclick="level4()">Test Your Skills</button>
+            <button onclick="clearLevel(4)" class="clear-btn">Clear</button>
+        </div>
+        <div id="level4Output" class="output"></div>
+    </div>
+
+    <script>
+        function level1() {
+            const input = document.getElementById('level1Input').value;
+            document.getElementById('level1Output').innerHTML =
+                'Hello, ' + input;
+
+            if(input.includes('alert') && input.includes('script')) {
+                showSuccess(1);
+            }
+        }
+
+        function level2() {
+            const input = document.getElementById('level2Input').value;
+            document.getElementById('level2Output').innerHTML =
+                '<img src="' + input + '" style="max-width:200px">';
+
+            if(input.includes('onerror') && input.includes('alert')) {
+                showSuccess(2);
+            }
+        }
+
+        function level3() {
+            const input = document.getElementById('level3Input').value;
+            document.getElementById('level3Output').innerHTML +=
+                '<div>' + input + '</div>';
+
+            if(input.includes('javascript:alert') && input.includes('document.domain')) {
+                showSuccess(3);
+            }
+        }
+
+        function level4() {
+            const input = document.getElementById('level4Input').value;
+            document.getElementById('level4Output').innerHTML =
+                '<div>' + input + '</div>';
+
+            // Check for all required elements
+            if(input.includes('script') &&
+               input.includes('onerror') &&
+               input.includes('javascript:alert') &&
+               input.includes('onmouseover') &&
+               input.includes('Stage 1') &&
+               input.includes('Stage 2') &&
+               input.includes('document.domain') &&
+               input.includes('location')) {
+                showSuccess(4);
+            }
+        }
+
+        function showSuccess(level) {
+            const output = document.getElementById(`level${level}Output`);
+            output.innerHTML += '<div class="success">🎉 Congratulations! You completed Level ' + level + '!</div>';
+        }
+
+        function clearLevel(level) {
+            document.getElementById(`level${level}Input`).value = '';
+            document.getElementById(`level${level}Output`).innerHTML = '';
+        }
+
+        // Initialize hints in console
+        console.log("=== XSS Learning Lab ===");
+        console.log("Level 1: Basic script injection");
+        console.log("Level 2: Image error events");
+        console.log("Level 3: JavaScript in links");
+        console.log("Level 4: Combine all techniques!");
+    </script>
+</body>
+</html>
