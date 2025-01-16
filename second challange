@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Game CTF</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a2e;
+            color: #eaeaea;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #ffcc00;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        a {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            color: #fff;
+            text-decoration: none;
+            background-color: #ff5733;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #c70039;
+        }
+
+        .cta {
+            font-style: italic;
+            color: #ffcc00;
+            margin-top: 40px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Can You Escape the Maze?</h1>
+
+    <p>Your journey begins here. Will you find the way to victory?</p>
+
+    <a href="win.zip">Download for Windows</a>
+    <a href="mac.zip">Download for Mac</a>
+
+    <p class="cta">"Every click brings you closer to glory!"</p>
+</body>
+
+</html>
